@@ -21,8 +21,8 @@ name: vtm
 
 # Which vTM image to run
 vtmImage:
-  repository: pulsesecure/vtm
-  tag: 19.1
+  repository: ysicing/vtm
+  tag: 20.1
   pullPolicy: IfNotPresent
 
 # Credentials for pulling the vTM image
@@ -30,19 +30,19 @@ vtmImage:
 
 # Accept EULA, eula must be set to "accept" otherwise the pod will not start.
 # The EULA can be viewed at https://www.pulsesecure.net/support/eula/
-#eula: accept
+eula: accept
 
 # API Version number - should match the latest API version in the vTM image
 apiVersion: 6.2
 
 # Password for the traffic manager admin user
-#adminPassword: <password>
+adminPassword: cowie5cah5eechei8iph4wie2aeloo6F
 
  # Number of vTM instances to run
 replicaCount: 1
 
 # Use host networking mode for the vTM
-#hostNetwork: true
+hostNetwork: true
 
 # Services Director Self Registration
 #selfRegistration:
