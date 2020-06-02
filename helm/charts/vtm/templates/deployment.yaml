@@ -63,6 +63,7 @@ spec:
             capabilities:
               add:
                 - SYS_RESOURCE
+                - SYS_MODULE
           {{ if .Values.hostNetwork }}
           {{- if eq .Values.hostNetwork true }}
                 - NET_ADMIN
