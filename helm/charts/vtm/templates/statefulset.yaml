@@ -15,7 +15,7 @@
 */ -}}
 {{- $root := . -}}
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "vtm.fullname" . }}
   labels:
@@ -29,6 +29,15 @@ spec:
     matchLabels:
       app.kubernetes.io/name: {{ template "vtm.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
+  serviceName: {{ include "vtm.fullname" . }}
+  updateStrategy:
+    type: {{ .Values.updateStrategy }}
+    {{- if (eq "Recreate" .Values.updateStrategy) }}
+    rollingUpdate: null
+    {{- else if .Values.rollingUpdatePartition }}
+    rollingUpdate:
+      partition: {{ .Values.rollingUpdatePartition }}
+    {{- end }}
   template:
     metadata:
       labels:

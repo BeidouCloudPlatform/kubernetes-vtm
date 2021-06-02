@@ -21,8 +21,8 @@ name: vtm
 
 # Which vTM image to run
 vtmImage:
-  repository: ysicing/vtm
-  tag: 20.1
+  repository: registry.cn-beijing.aliyuncs.com/k0s/vtm
+  tag: 21.1
   pullPolicy: IfNotPresent
 
 # Credentials for pulling the vTM image
@@ -33,7 +33,7 @@ vtmImage:
 eula: accept
 
 # API Version number - should match the latest API version in the vTM image
-apiVersion: 6.2
+apiVersion: 8.2
 
 # Password for the traffic manager admin user
 adminPassword: cowie5cah5eechei8iph4wie2aeloo6F
@@ -41,8 +41,12 @@ adminPassword: cowie5cah5eechei8iph4wie2aeloo6F
  # Number of vTM instances to run
 replicaCount: 1
 
+updateStrategy: RollingUpdate
+
+# rollingUpdatePartition:
+
 # Use host networking mode for the vTM
-hostNetwork: true
+hostNetwork: false
 
 # Services Director Self Registration
 #selfRegistration:
@@ -56,7 +60,7 @@ hostNetwork: true
 
 # Service resource created to access the Web UI and Rest API of the vTM
 adminService:
-  type: NodePort
+  type: LoadBalancer
 #  annotations: {}
 #  clusterIP: ""
 #  externalIPs: []
@@ -159,17 +163,17 @@ basePort: 20000
 
 # Additional settings to apply to the vTM deployment.
 
-resources: {}
+resources: 
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 1024Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 512Mi
+  limits:
+   cpu: 1000m
+   memory: 4096Mi
+  requests:
+   cpu: 100m
+   memory: 1024Mi
 
 nodeSelector: {}
 
